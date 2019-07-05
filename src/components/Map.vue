@@ -78,6 +78,11 @@ export default {
         },
       ],
     }
+  },
+  mounted() {
+    this.$axios.get('map/generate').then(res => {
+      this.tiles = res.data.fields;
+    });
   }
 }
 </script>
