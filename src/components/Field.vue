@@ -14,7 +14,6 @@ export default {
   },
   methods: {
     position() {
-      console.log(this.field)
       return {
         top: this.field.y * 50 + 'px',
         left: this.field.x * 50 + 'px',

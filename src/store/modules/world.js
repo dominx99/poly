@@ -7,9 +7,7 @@ export default {
   },
   actions: {
     async get({ commit }, id) {
-      console.log('world/get')
       let response = await window.axios.get('api/world/' + id)
-      console.log('world/got')
 
       commit('setWorld', response.data.data.world)
     },
