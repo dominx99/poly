@@ -32,7 +32,7 @@ export default {
 <style lang="scss">
 .fields {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 2rem - 23px);
   position: relative;
   overflow: auto;
   z-index: 10;
