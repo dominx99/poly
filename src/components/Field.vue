@@ -31,25 +31,13 @@ export default {
 
 <style lang="scss">
 .fields {
-  width: 100%;
-  height: calc(100vh - 2rem - 23px);
-  position: relative;
-  overflow: auto;
-  z-index: 10;
-
   .field {
-    width: 48px; height: 48px;
-    background-color: #46474c;
-    border: 2px solid lighten(#46474c, 3);
-    color: #fefefe;
-    position: absolute;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 50px; height: 50px;
+    @apply flex justify-center items-center border border-solid bg-gray-700 text-white absolute z-20;
+    border-color: lighten(#4a5568, 2);
 
     &.busy {
-      background-color: green;
+      @apply bg-green-600;
     }
   }
 }

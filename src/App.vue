@@ -19,7 +19,6 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Russo One', sans-serif;
 }
 
 /**

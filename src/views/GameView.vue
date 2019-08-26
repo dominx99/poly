@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Topbar/>
     <Map/>
     <Toolbar/>
   </div>
@@ -8,11 +9,13 @@
 <script>
 import Map from './../components/Map'
 import Toolbar from './../components/Toolbar'
+import Topbar from './../components/Topbar'
 
 export default {
   components: {
     Map,
     Toolbar,
+    Topbar
   }
 }
 </script>

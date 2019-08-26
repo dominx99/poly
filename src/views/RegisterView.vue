@@ -2,8 +2,8 @@
   <div class="auth-container">
     <div class="auth">
       <div class="auth-header">
-        <router-link tag="button" to="/login" class="active">Login</router-link>
-        <router-link tag="button" to="/register">Register</router-link>
+        <router-link tag="button" :class="'btn bg-indigo-900 text-white rounded-tl'" to="/login" class="active">Login</router-link>
+        <router-link tag="button" :class="'btn bg-white rounded-tr'" to="/register">Register</router-link>
       </div>
       <div class="auth-body">
         <div class="form-group">
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="auth-footer">
-        <button @click="register()" class="active">Register</button>
+        <button @click="register()" class="btn bg-indigo-900 text-white rounded-b">Register</button>
       </div>
     </div>
   </div>

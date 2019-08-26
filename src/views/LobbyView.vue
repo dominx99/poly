@@ -39,40 +39,19 @@ export default {
 </script>
 
 <style lang="scss">
-$main: #6729ce;
-
 .menu-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #e4e4ed;
+  @apply flex justify-center items-center w-full min-h-screen bg-gradient-purple-blue;
 
   .menu {
-    background-color: $main;
-    border-radius: .5rem;
+    @apply flex bg-indigo-800 rounded py-6 px-8 justify-center items-center flex-col;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    padding: 1.5rem 2rem;
-    min-width: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    min-width: 300px;
 
     a {
-      color: #fefefe;
-      border-radius: .5rem;
-      text-decoration: none;
-      margin-bottom: 1.5rem;
-      background-color: darken($main, 5);
-      width: 100%;
-      text-align: center;
-      padding: .75rem 1rem;
-      text-transform: uppercase;
+      @apply bg-indigo-900 text-white rounded no-underline mb-6 w-full text-center py-3 px-4 uppercase;
 
       &:last-child {
-        margin-bottom: 0;
+        @apply mb-0;
       }
     }
   }

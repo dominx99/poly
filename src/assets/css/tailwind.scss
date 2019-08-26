@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+
+@import './components/button';
+
+@import './custom/auth';
+
+@tailwind utilities;

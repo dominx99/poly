@@ -5,5 +5,7 @@ export default function inGame ({ next, router }) {
     return router.push({ name: 'lobby' })
   }
 
+  store.dispatch('user/fetchResources')
+
   return next()
 }
