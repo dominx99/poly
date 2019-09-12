@@ -26,8 +26,7 @@ export default {
           }
         })
       } catch (error) {
-        alert('I fucked up something')
-        console.log(error, error.response)
+        console.error(error, error.response)
       }
     },
     logout() {

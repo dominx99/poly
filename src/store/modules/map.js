@@ -7,7 +7,7 @@ export default {
   },
   actions: {
     async get({ state, commit }, worldId) {
-      let response = await window.axios.get('api/map/' + worldId)
+      let response = await window.axios.get('api/world/' + worldId + '/map')
 
       commit('setMap', response.data.data.map)
     },

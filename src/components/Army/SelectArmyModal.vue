@@ -3,26 +3,14 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
-          <div class="modal-header">
-            <slot name="header">
-              default header
-            </slot>
+          <div class="modal-top">
+            <div class="modal-header">Select army</div>
+            <d-svg @click.native="closeModal()" class="close-icon" icon="cancel"/>
           </div>
-
-          <div class="modal-body">
-            <slot name="body">
-              default body
-            </slot>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
-            </slot>
+          <div class="modal-body w-full flex justify-around mt-12">
+            <div :class="armyClass(army)" v-for="army in armies">
+              <d-svg class="w-16 md:w-20" :icon="army.name"/>
+            </div>
           </div>
         </div>
       </div>
@@ -31,13 +19,16 @@
 </template>
 
 <script>
+import DSvg from './../DSvg'
+
 export default {
   data () {
     return {
       showModal: false,
-      affordableArmies: [],
-      loading: true
     }
+  },
+  components: {
+    DSvg
   },
   computed: {
     armies () {
@@ -45,83 +36,39 @@ export default {
     },
     gold () {
       return this.$store.state.user.user.resources.gold
+    },
+    mapId () {
+      return this.$store.state.map.map.id
     }
   },
   methods: {
-    recalculateAffordable () {
-      this.affordableArmies = this.armies.filter(function (army) {
-        return this.gold > army.cost
-      })
-    },
     openModal () {
-      this.loading = true
-      this.recalculateAffordable()
       this.showModal = true
-      this.loading = false
+    },
+    closeModal () {
+      console.log('yes')
+      this.showModal = false
+    },
+    armyClass (army) {
+      return {
+        'not-affordable': ! this.isAffordable(army.cost)
+      }
+    },
+    isAffordable (cost) {
+      return this.gold >= cost 
     }
   },
   created () {
     this.$bus.$on('openArmyModal', this.openModal)
   },
-  mounted () {
-    this.$store.dispatch('army/fetchArmies')
+  beforeDestroy() {
+    this.$bus.$off('openArmyModal', this.openModal)
   }
 }
 </script>
 
-<style lang="scss">
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+<style scoped>
+.not-affordable {
+  @apply opacity-50;
 }
 </style>

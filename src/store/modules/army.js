@@ -4,10 +4,10 @@ export default {
     list: []
   },
   actions: {
-    async fetchArmies({ state, commit }, worldId) {
-      let response = await window.axios.get('api/armies')
+    async fetchBaseArmies({ commit }, mapId) {
+      let response = await window.axios.get('api/map/' + mapId + '/base-armies')
 
-      commit('setArmies', response.data.data.armies)
+      commit('setArmies', response.data.data)
     },
   },
   mutations: {

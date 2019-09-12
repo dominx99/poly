@@ -49,7 +49,7 @@ export default {
         localStorage.setItem('token', res.data.data.token)
         this.$router.push({ name: 'lobby' })
       } catch (error) {
-        console.log(error.response)
+        console.error(error.response)
         this.errors = error.response.data.errors
       }
     },
