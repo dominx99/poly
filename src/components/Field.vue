@@ -45,7 +45,7 @@ export default {
     }
 
     &.possible {
-      background-color: theme('colors.yellow.500') !important;
+      background-color: theme('colors.yellow.400') !important;
     }
   }
 }
