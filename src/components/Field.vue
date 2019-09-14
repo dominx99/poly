@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="position()" :class="fieldClass()">
+  <div v-bind:style="position()" :class="fieldClass()" @click="put">
     <!-- <d-svg style="width: 75%; height: 75%;" :icon="field.type"/> -->
   </div>
 </template>
@@ -22,8 +22,12 @@ export default {
     fieldClass() {
       return {
         field: true,
-        busy: this.field.user_id ? true : false
+        busy: this.field.user_id ? true : false,
+        possible: this.field.possible
       }
+    },
+    put () {
+      this.$bus.$emit('clearPossibleToPut')
     }
   },
 }
@@ -38,6 +42,10 @@ export default {
 
     &.busy {
       @apply bg-green-600;
+    }
+
+    &.possible {
+      background-color: theme('colors.yellow.500') !important;
     }
   }
 }

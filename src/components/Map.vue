@@ -10,6 +10,7 @@
 <script>
 import Field from './Field';
 import ArmyModal from './Army/SelectArmyModal'
+import fields from './../queries/fields'
 
 export default {
   components: {
@@ -19,8 +20,43 @@ export default {
   computed: {
     fields() {
       return this.$store.state.map.map.fields
+    },
+    userId () {
+      return this.$store.state.user.user.id
     }
   },
+  methods: {
+    setPossibleToPut (power) {
+      fields.getPossibleToPut(this.fields, this.userId, power).forEach(field => {
+        this.$set(
+          this.fields,
+          this.fields.indexOf(field),
+          Object.assign({}, field, { possible: true })
+        )
+      })
+    },
+    clearPossibleToPut () {
+      this.fields.forEach(field => {
+        if (! field.possible) {
+          return
+        }
+
+        this.$set(
+          this.fields,
+          this.fields.indexOf(field),
+          Object.assign({}, field, { possible: false })
+        )
+      })
+    }
+  },
+  created () {
+    this.$bus.$on('setPossibleToPut', this.setPossibleToPut)
+    this.$bus.$on('clearPossibleToPut', this.clearPossibleToPut)
+  },
+  beforeDestroy () {
+    this.$bus.$off('setPossibleToPut', this.setPossibleToPut)
+    this.$bus.$off('clearPossibleToPut', this.clearPossibleToPut)
+  }
 }
 </script>
 

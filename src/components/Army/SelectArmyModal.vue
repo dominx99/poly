@@ -8,7 +8,7 @@
             <d-svg @click.native="closeModal()" class="close-icon" icon="cancel"/>
           </div>
           <div class="modal-body w-full flex justify-around mt-12">
-            <div :class="armyClass(army)" v-for="army in armies">
+            <div @click="tryToBuy(army)" :class="armyClass(army)" :key="index" v-for="(army, index) in armies">
               <d-svg class="w-16 md:w-20" :icon="army.name"/>
             </div>
           </div>
@@ -46,7 +46,6 @@ export default {
       this.showModal = true
     },
     closeModal () {
-      console.log('yes')
       this.showModal = false
     },
     armyClass (army) {
@@ -55,13 +54,21 @@ export default {
       }
     },
     isAffordable (cost) {
-      return this.gold >= cost 
-    }
+      return this.gold >= cost
+    },
+    tryToBuy (army) {
+      if (this.gold < army.cost) {
+        return
+      }
+
+      this.$bus.$emit('setPossibleToPut', army.power);
+      this.closeModal()
+    },
   },
   created () {
     this.$bus.$on('openArmyModal', this.openModal)
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$bus.$off('openArmyModal', this.openModal)
   }
 }
