@@ -5,6 +5,7 @@ import user from './modules/user'
 import world from './modules/world'
 import map from './modules/map'
 import army from './modules/army'
+import unit from './modules/unit'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     user,
     world,
     map,
-    army
+    army,
+    unit
   }
 })
 

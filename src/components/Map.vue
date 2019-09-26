@@ -36,6 +36,8 @@ export default {
       })
     },
     clearPossibleToPut () {
+      this.$store.commit('unit/clearSelected')
+
       this.fields.forEach(field => {
         if (! field.possible) {
           return

@@ -4,8 +4,8 @@ export default {
     list: []
   },
   actions: {
-    async fetchBaseArmies({ commit }, mapId) {
-      let response = await window.axios.get('api/map/' + mapId + '/base-armies')
+    async fetchArmyUnits({ commit }, mapId) {
+      let response = await window.axios.get('api/map/' + mapId + '/army-units')
 
       commit('setArmies', response.data.data)
     },

@@ -1,6 +1,6 @@
 <template>
   <div v-bind:style="position()" :class="fieldClass()" @click="put">
-    <!-- <d-svg style="width: 75%; height: 75%;" :icon="field.type"/> -->
+    <d-svg v-if="fieldHasMapObject(field)" style="width: 75%; height: 75%;" :icon="mapObjectUnitName(field)"/>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   props: ['field'],
   components: {
     DSvg,
+  },
+  computed: {
+    mapObjects () {
+      return this.$store.state.map.map.map_objects
+    }
   },
   methods: {
     position() {
@@ -27,7 +32,18 @@ export default {
       }
     },
     put () {
+      this.$store.dispatch('map/put', { fieldId: this.field.id });
       this.$bus.$emit('clearPossibleToPut')
+    },
+    fieldHasMapObject () {
+      return this.mapObjects.some(mapObject => {
+        return mapObject.field_id === this.field.id
+      })
+    },
+    mapObjectUnitName () {
+      return this.mapObjects.find(mapObject => {
+        return mapObject.field_id === this.field.id
+      }).unit_name
     }
   },
 }
@@ -41,11 +57,12 @@ export default {
     border-color: lighten(#4a5568, 2);
 
     &.busy {
-      @apply bg-green-600;
+      @apply bg-green-600 border-green-700;
     }
 
     &.possible {
       background-color: theme('colors.yellow.400') !important;
+      border-color: theme('colors.yellow.500') !important;
     }
   }
 }
