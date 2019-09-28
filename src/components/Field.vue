@@ -1,6 +1,6 @@
 <template>
   <div v-bind:style="position()" :class="fieldClass()" @click="put">
-    <d-svg v-if="fieldHasMapObject(field)" style="width: 75%; height: 75%;" :icon="mapObjectUnitName(field)"/>
+    <d-svg v-if="fieldHasMapObject(field)" style="width: 75%; height: 75%;" :icon="mapObjectUnitName"/>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   computed: {
     mapObjects () {
       return this.$store.state.map.map.map_objects
+    },
+    mapObjectUnitName () {
+      return this.mapObjects.find(mapObject => {
+        return mapObject.field_id === this.field.id
+      }).unit_name
     }
   },
   methods: {
@@ -39,13 +44,8 @@ export default {
       return this.mapObjects.some(mapObject => {
         return mapObject.field_id === this.field.id
       })
-    },
-    mapObjectUnitName () {
-      return this.mapObjects.find(mapObject => {
-        return mapObject.field_id === this.field.id
-      }).unit_name
     }
-  },
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 export default {
-  getPossibleToPut (fields, userId, power) {
+  getPossibleToPut (fields, mapObjects, userId, power) {
     this.fields = fields
     this.resultFields = []
 
@@ -12,12 +12,21 @@ export default {
     })
 
     this.resultFields = this.resultFields.filter(field => {
-      // TODO: Refactor to real data
-      power = 3; field.defense = 2
-      return power > field.defense
+      return power > this.getFieldDefense(field, mapObjects)
     })
 
     return this.resultFields.concat(ownFields)
+  },
+  getFieldDefense (field, mapObjects) {
+    let mapObject = mapObjects.find(mapObject => {
+      return mapObject.field_id === field.id
+    })
+
+    if (! mapObject) {
+      return 0
+    }
+
+    return mapObject.defense
   },
   getRoundedFields (field) {
     let directions = ['Up', 'Down', 'Right', 'Left']

@@ -21,13 +21,16 @@ export default {
     fields() {
       return this.$store.state.map.map.fields
     },
+    mapObjects() {
+      return this.$store.state.map.map.map_objects
+    },
     userId () {
       return this.$store.state.user.user.id
     }
   },
   methods: {
     setPossibleToPut (power) {
-      fields.getPossibleToPut(this.fields, this.userId, power).forEach(field => {
+      fields.getPossibleToPut(this.fields, this.mapObjects, this.userId, power).forEach(field => {
         this.$set(
           this.fields,
           this.fields.indexOf(field),

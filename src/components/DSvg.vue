@@ -11,8 +11,15 @@ export default {
       required: true,
     },
   },
+  watch: {
+    icon (newValue) {
+      this.icon = newValue
+      this.$forceUpdate
+    }
+  },
   computed: {
     dynamicIcon () {
+      console.log('dynamic', this.icon)
       return () => import(
         /* webpackChunkName: "icons" */
         /* webpackMode: "lazy-once" */
