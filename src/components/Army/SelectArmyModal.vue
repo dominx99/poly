@@ -64,6 +64,7 @@ export default {
       this.$store.commit('unit/setSelected', {
         id: army.id,
         type: 'army',
+        cost: army.cost,
       })
       this.$bus.$emit('setPossibleToPut', army.power);
       this.closeModal()

@@ -15,14 +15,20 @@ export default {
 
       commit('setMap', response.data.data.map)
     },
-    put ({}, { fieldId }) {
-      window.axios.post('api/map/put', {
+    async put ({}, { fieldId }) {
+      let cost = store.state.unit.selected.cost
+
+      let res = await window.axios.post('api/map/put', {
         field_id: fieldId,
         map_id: store.state.map.map.id,
         user_id: store.state.user.user.id,
         unit_id: store.state.unit.selected.id,
         type: store.state.unit.selected.type
       })
+
+      if (res.status === 200) {
+        store.commit('user/reduceGold', cost)
+      }
     }
   },
   mutations: {

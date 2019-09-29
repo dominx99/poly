@@ -22,6 +22,11 @@ export default {
 
       commit('setResources', response.data.data)
     },
+    async fetchPlayers({ state, commit }) {
+      let response = await window.axios.get('api/world/players?world_id=' + state.user.world_id)
+
+      commit('setPlayers', response.data.data)
+    }
   },
   mutations: {
     setUser (state, user) {
@@ -31,6 +36,12 @@ export default {
     },
     setResources (state, resources) {
       state.user.resources.gold = resources.gold
+    },
+    reduceGold (state, gold) {
+      state.user.resources.gold -= gold
+    },
+    setPlayers (state, players) {
+      state.players = players
     }
   }
 }

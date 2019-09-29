@@ -4,8 +4,8 @@ export default {
     selected: {}
   },
   mutations: {
-    setSelected (state, { id, type }) {
-      state.selected = { id, type }
+    setSelected (state, { id, type, cost }) {
+      state.selected = { id, type, cost }
     },
     clearSelected (state) {
       state.selected = {}

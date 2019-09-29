@@ -19,7 +19,6 @@ export default {
   },
   computed: {
     dynamicIcon () {
-      console.log('dynamic', this.icon)
       return () => import(
         /* webpackChunkName: "icons" */
         /* webpackMode: "lazy-once" */

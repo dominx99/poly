@@ -20,6 +20,9 @@ export default {
       return this.mapObjects.find(mapObject => {
         return mapObject.field_id === this.field.id
       }).unit_name
+    },
+    players () {
+      return this.$store.state.user.players
     }
   },
   methods: {
@@ -30,11 +33,19 @@ export default {
       }
     },
     fieldClass() {
-      return {
+      let classes = {
         field: true,
         busy: this.field.user_id ? true : false,
         possible: this.field.possible
       }
+
+      let color = this.getPlayerColor()
+
+      if (color) {
+        classes[color] = true
+      }
+
+      return classes
     },
     put () {
       this.$store.dispatch('map/put', { fieldId: this.field.id });
@@ -44,6 +55,17 @@ export default {
       return this.mapObjects.some(mapObject => {
         return mapObject.field_id === this.field.id
       })
+    },
+    getPlayerColor () {
+      let player = this.players.find(searchPlayer => {
+        return searchPlayer.id === this.field.user_id
+      })
+
+      if (! player) {
+        return
+      }
+
+      return player.color
     }
   }
 }
@@ -56,8 +78,20 @@ export default {
     @apply flex justify-center items-center border border-solid bg-gray-700 text-white absolute z-20;
     border-color: lighten(#4a5568, 2);
 
-    &.busy {
+    &.green {
       @apply bg-green-600 border-green-700;
+    }
+
+    &.red {
+      @apply bg-red-600 border-red-700;
+    }
+
+    &.purple {
+      @apply bg-purple-600 border-purple-700;
+    }
+
+    &.indigo {
+      @apply bg-indigo-600 border-indigo-700;
     }
 
     &.possible {
