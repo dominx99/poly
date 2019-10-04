@@ -6,7 +6,7 @@ export default class Socket {
       return;
     }
 
-    let channel = window.socket.subscribe(userId)
+    window.socket.subscribe(userId)
   }
   static subscribeWorld(worldId) {
     if (worldId === null || worldId === undefined || worldId === '') {
@@ -22,5 +22,16 @@ export default class Socket {
         store.commit('world/setStatus', data.status)
       }
     });
+  }
+  static subscribeMap (mapId) {
+    let channel = window.socket.subscribe(mapId)
+
+    channel.bind('map.map-object.placed', data => {
+      store.commit('map/takeOverField', {
+        fieldId: data.field_id,
+        userId: data.user_id
+      })
+      store.commit('map/placeMapObject', data)
+    })
   }
 }

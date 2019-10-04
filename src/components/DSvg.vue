@@ -11,6 +11,12 @@ export default {
       required: true,
     },
   },
+  watch: {
+    icon (newValue) {
+      this.icon = newValue
+      this.$forceUpdate
+    }
+  },
   computed: {
     dynamicIcon () {
       return () => import(

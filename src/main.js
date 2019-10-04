@@ -2,8 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Pusher from 'pusher-js'
+import '@/assets/css/tailwind.scss'
 
 Vue.use(VueRouter)
+Vue.prototype.$bus = new Vue()
 
 import routes from './routes'
 import store from './store/index'

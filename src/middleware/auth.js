@@ -7,7 +7,12 @@ export default async function auth ({ next, router }) {
     return router.push({ name: 'login' })
   }
 
-  await store.dispatch('user/get')
+  try {
+    await store.dispatch('user/get')
+  } catch (e) {
+    localStorage.setItem('token', '')
+    router.push({ name: 'login' })
+  }
 
   return next()
 }

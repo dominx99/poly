@@ -8,6 +8,7 @@
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  @apply font-sans;
 }
 
 /* Sections
@@ -19,7 +20,6 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Russo One', sans-serif;
 }
 
 /**
