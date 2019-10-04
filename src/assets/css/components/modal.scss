@@ -39,3 +39,7 @@
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.not-affordable {
+  @apply opacity-50;
+}

@@ -1,4 +1,5 @@
 import Socket from '../../socket/index';
+import store from './../index'
 
 export default {
   namespaced: true,
@@ -16,6 +17,9 @@ export default {
       commit('setUser', response.data.data)
       Socket.subscribeUser(response.data.data.id)
       Socket.subscribeWorld(response.data.data.world_id)
+    },
+    async updateResources () {
+      await window.axios.post('api/user/resources/update', { map_id: store.state.map.map.id })
     },
     async fetchResources ({ commit }) {
       let response = await window.axios.get('api/user/resources')

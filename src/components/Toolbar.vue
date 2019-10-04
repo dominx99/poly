@@ -1,15 +1,18 @@
 <template>
   <div class="toolbar">
-    <button class="btn bg-teal-700 shadow mx-3" @click="modal('army')">Army</button>
-    <button class="btn bg-teal-700 shadow">Buildings</button>
+    <button class="btn bg-teal-700 shadow mx-3" @click="openArmyModal">Army</button>
+    <button class="btn bg-teal-700 shadow" @click="openBuildingModal">Buildings</button>
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    modal () {
+    openArmyModal () {
       this.$bus.$emit('openArmyModal');
+    },
+    openBuildingModal () {
+      this.$bus.$emit('openBuildingModal');
     }
   }
 }

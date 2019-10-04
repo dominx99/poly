@@ -4,12 +4,12 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-top">
-            <div class="modal-header">Select army</div>
+            <div class="modal-header">Select building</div>
             <d-svg @click.native="closeModal()" class="close-icon" icon="cancel"/>
           </div>
           <div class="modal-body w-full flex justify-around mt-12">
-            <div @click="tryToBuy(army)" :class="armyClass(army)" :key="index" v-for="(army, index) in armies">
-              <d-svg class="w-16 md:w-20" :icon="army.name"/>
+            <div @click="tryToBuy(building)" :class="buildingClass(building)" :key="index" v-for="(building, index) in buildings">
+              <d-svg class="w-16 md:w-20" :icon="building.name"/>
             </div>
           </div>
         </div>
@@ -31,8 +31,8 @@ export default {
     DSvg
   },
   computed: {
-    armies () {
-      return this.$store.state.army.list
+    buildings () {
+      return this.$store.state.building.list
     },
     gold () {
       return this.$store.state.user.user.resources.gold
@@ -48,33 +48,33 @@ export default {
     closeModal () {
       this.showModal = false
     },
-    armyClass (army) {
+    buildingClass (building) {
       return {
-        'not-affordable': ! this.isAffordable(army.cost)
+        'not-affordable': ! this.isAffordable(building.cost)
       }
     },
     isAffordable (cost) {
       return this.gold >= cost
     },
-    tryToBuy (army) {
-      if (this.gold < army.cost) {
+    tryToBuy (building) {
+      if (this.gold < building.cost) {
         return
       }
 
       this.$store.commit('unit/setSelected', {
-        id: army.id,
-        type: 'army',
-        cost: army.cost,
+        id: building.id,
+        type: 'building',
+        cost: building.cost,
       })
-      this.$bus.$emit('setPossibleToPut', army.power);
+      this.$bus.$emit('setPossibleToPut', building.power);
       this.closeModal()
     },
   },
   created () {
-    this.$bus.$on('openArmyModal', this.openModal)
+    this.$bus.$on('openBuildingModal', this.openModal)
   },
   beforeDestroy () {
-    this.$bus.$off('openArmyModal', this.openModal)
+    this.$bus.$off('openBuildingModal', this.openModal)
   }
 }
 </script>

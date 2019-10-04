@@ -1,6 +1,5 @@
 <template>
   <div>
-    <ArmyModal/>
     <div class="fields w-full bg-blue-700 relative overflow-auto z-10">
       <Field :field="field" :key="index" v-for="(field, index) in fields"/>
     </div>
@@ -9,13 +8,11 @@
 
 <script>
 import Field from './Field';
-import ArmyModal from './Army/SelectArmyModal'
 import fields from './../queries/fields'
 
 export default {
   components: {
     Field,
-    ArmyModal,
   },
   computed: {
     fields() {
