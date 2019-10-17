@@ -47,12 +47,40 @@ export default {
 
       return classes
     },
+    move () {
+    },
+    select () {
+      let mapObject = this.findFieldMapObject()
+
+      this.$store.commit('mapObject/setSelected', {
+        id: mapObject.id,
+      })
+
+      this.$bus.$emit('setPossibleToPut', mapObject.power);
+    },
     put () {
+      if (this.fieldHasMapObject()) {
+        this.select()
+
+        return
+      }
+
+      if (this.selected.action === 'move') {
+        this.move()
+
+        return
+      }
+
       this.$store.dispatch('map/put', { fieldId: this.field.id });
       this.$bus.$emit('clearPossibleToPut')
     },
     fieldHasMapObject () {
       return this.mapObjects.some(mapObject => {
+        return mapObject.field_id === this.field.id
+      })
+    },
+    findFieldMapObject () {
+      return this.mapObjects.find(mapObject => {
         return mapObject.field_id === this.field.id
       })
     },
